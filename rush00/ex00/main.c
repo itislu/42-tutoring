@@ -6,12 +6,19 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:13:23 by ldulling          #+#    #+#             */
-/*   Updated: 2025/02/09 15:53:30 by ldulling         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:17:26 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <unistd.h>
+
+#ifndef WIDTH
+# define WIDTH				10
+#endif
+#ifndef HEIGHT
+# define HEIGHT				10
+#endif
 
 #ifndef MAX_DISPLAY_WIDTH
 # define MAX_DISPLAY_WIDTH	2147483647
@@ -20,51 +27,50 @@
 # define MAX_DISPLAY_HEIGHT	2147483647
 #endif
 
-#define USAGE_ERROR		1
-#define USAGE			"Usage: ./a.out <width> <height> [rush_number]\n"
-#define POSITIVE_ONLY	"Width and height have to be positive numbers.\n"
+#define USAGE_ERROR			1
+#define POSITIVE_ONLY		"Width and height have to be positive numbers.\n"
 
-#define TOP_LEFT		0
-#define TOP_RIGHT		1
-#define BOTTOM_LEFT		2
-#define BOTTOM_RIGHT	3
-#define HORIZONTAL		4
-#define VERTICAL		5
-#define MIDDLE			6
+#define TOP_LEFT			0
+#define TOP_RIGHT			1
+#define BOTTOM_LEFT			2
+#define BOTTOM_RIGHT		3
+#define HORIZONTAL			4
+#define VERTICAL			5
+#define MIDDLE				6
 
 static const char	*g_chars;
 
-void		ft_putchar(char c);
-static char	*assign_chars(int rush_number);
-static void	rush(int width, int height);
-static void	print_row(int width, char left, char middle, char right);
-static int	ft_atoi(const char *nptr);
+void				ft_putchar(char c);
+const char			*assign_chars_compile_time(void);
+static const char	*assign_chars_run_time(int rush_number);
+static void			rush(int width, int height);
+static void			print_row(int width, char left, char middle, char right);
+static int			ft_atoi(const char *nptr);
 
 int	main(int argc, char *argv[])
 {
 	int	width;
 	int	height;
 
-	if (argc < 3 || argc > 4)
-	{
-		write(STDERR_FILENO, USAGE, sizeof(USAGE));
-		return (USAGE_ERROR);
-	}
-	width = ft_atoi(argv[1]);
-	height = ft_atoi(argv[2]);
+	width = WIDTH;
+	height = HEIGHT;
+	if (argc > 1)
+		width = ft_atoi(argv[1]);
+	if (argc > 2)
+		height = ft_atoi(argv[2]);
 	if (width < 0 || height < 0)
 	{
 		write(STDERR_FILENO, POSITIVE_ONLY, sizeof(POSITIVE_ONLY));
 		return (USAGE_ERROR);
 	}
-	if (argc == 4)
-		g_chars = assign_chars(ft_atoi(argv[3]));
+	if (argc > 3)
+		g_chars = assign_chars_run_time(ft_atoi(argv[3]));
 	else
-		g_chars = assign_chars(0);
+		g_chars = assign_chars_compile_time();
 	rush(width, height);
 }
 
-char	*assign_chars(int rush_number)
+const char	*assign_chars_run_time(int rush_number)
 {
 	if (rush_number == 0)
 		return ("oooo-| ");
