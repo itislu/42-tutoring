@@ -13,11 +13,11 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-#ifndef MAX_WIDTH
-# define MAX_WIDTH		150
+#ifndef MAX_DISPLAY_WIDTH
+# define MAX_DISPLAY_WIDTH	2147483647
 #endif
-#ifndef MAX_HEIGHT
-# define MAX_HEIGHT		100
+#ifndef MAX_DISPLAY_HEIGHT
+# define MAX_DISPLAY_HEIGHT	2147483647
 #endif
 
 #define USAGE_ERROR		1
@@ -84,7 +84,7 @@ void	rush(int width, int height)
 	int	row;
 
 	row = 0;
-	if (height <= MAX_HEIGHT)
+	if (height <= MAX_DISPLAY_HEIGHT)
 	{
 		print_row(width,
 			g_chars[TOP_LEFT], g_chars[HORIZONTAL], g_chars[TOP_RIGHT]);
@@ -95,7 +95,7 @@ void	rush(int width, int height)
 		print_row(width, '.', '.', '.');
 		print_row(width, '.', '.', '.');
 		print_row(width, '.', '.', '.');
-		row = height - MAX_HEIGHT;
+		row = height - MAX_DISPLAY_HEIGHT;
 	}
 	while (row < height - 1)
 	{
@@ -112,7 +112,7 @@ void	print_row(int width, char left, char middle, char right)
 	int	col;
 
 	col = 0;
-	if (width <= MAX_WIDTH)
+	if (width <= MAX_DISPLAY_WIDTH)
 	{
 		ft_putchar(left);
 		col++;
@@ -120,7 +120,7 @@ void	print_row(int width, char left, char middle, char right)
 	else
 	{
 		write(STDOUT_FILENO, "...", 3);
-		col = width - MAX_WIDTH;
+		col = width - MAX_DISPLAY_WIDTH;
 	}
 	while (col < width - 1)
 	{
