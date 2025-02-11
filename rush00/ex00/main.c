@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:13:23 by ldulling          #+#    #+#             */
-/*   Updated: 2025/02/09 18:17:26 by ldulling         ###   ########.fr       */
+/*   Updated: 2025/02/11 10:30:15 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static const char	*g_chars;
 void				ft_putchar(char c);
 const char			*assign_chars_compile_time(void);
 static const char	*assign_chars_run_time(int rush_number);
-static void			rush(int width, int height);
+static bool			rush(int width, int height);
 static void			print_row(int width, char left, char middle, char right);
 static int			ft_atoi(const char *nptr);
 
@@ -58,16 +58,15 @@ int	main(int argc, char *argv[])
 		width = ft_atoi(argv[1]);
 	if (argc > 2)
 		height = ft_atoi(argv[2]);
-	if (width < 0 || height < 0)
-	{
-		write(STDERR_FILENO, POSITIVE_ONLY, sizeof(POSITIVE_ONLY));
-		return (USAGE_ERROR);
-	}
 	if (argc > 3)
 		g_chars = assign_chars_run_time(ft_atoi(argv[3]));
 	else
 		g_chars = assign_chars_compile_time();
-	rush(width, height);
+	if (!rush(width, height))
+	{
+		write(STDERR_FILENO, POSITIVE_ONLY, sizeof(POSITIVE_ONLY));
+		return (USAGE_ERROR);
+	}
 }
 
 const char	*assign_chars_run_time(int rush_number)
@@ -85,55 +84,57 @@ const char	*assign_chars_run_time(int rush_number)
 	return ("oooo-| ");
 }
 
-void	rush(int width, int height)
+bool	rush(int width, int height)
 {
-	int	row;
-
-	row = 0;
-	if (height <= MAX_DISPLAY_HEIGHT)
+	if (height < 0 || width < 0)
+		return (false);
+	if (0 < height && height <= MAX_DISPLAY_HEIGHT)
 	{
 		print_row(width,
 			g_chars[TOP_LEFT], g_chars[HORIZONTAL], g_chars[TOP_RIGHT]);
-		row++;
+		height--;
 	}
-	else
+	else if (height > 0)
 	{
 		print_row(width, '.', '.', '.');
 		print_row(width, '.', '.', '.');
 		print_row(width, '.', '.', '.');
-		row = height - MAX_DISPLAY_HEIGHT;
+		height = MAX_DISPLAY_HEIGHT;
 	}
-	while (row < height - 1)
+	while (height > 1)
 	{
 		print_row(width, g_chars[VERTICAL], g_chars[MIDDLE], g_chars[VERTICAL]);
-		row++;
+		height--;
 	}
-	if (row < height)
+	if (height > 0)
 		print_row(width,
 			g_chars[BOTTOM_LEFT], g_chars[HORIZONTAL], g_chars[BOTTOM_RIGHT]);
+	return (true);
 }
 
 void	print_row(int width, char left, char middle, char right)
 {
-	int	col;
-
-	col = 0;
+	if (width == 0)
+	{
+		ft_putchar('\n');
+		return ;
+	}
 	if (width <= MAX_DISPLAY_WIDTH)
 	{
 		ft_putchar(left);
-		col++;
+		width--;
 	}
 	else
 	{
 		write(STDOUT_FILENO, "...", 3);
-		col = width - MAX_DISPLAY_WIDTH;
+		width = MAX_DISPLAY_WIDTH;
 	}
-	while (col < width - 1)
+	while (width > 1)
 	{
 		ft_putchar(middle);
-		col++;
+		width--;
 	}
-	if (col < width)
+	if (width > 0)
 		ft_putchar(right);
 	ft_putchar('\n');
 }
