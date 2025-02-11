@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:13:23 by ldulling          #+#    #+#             */
-/*   Updated: 2025/02/11 10:30:15 by ldulling         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:12:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ bool	rush(int width, int height)
 	}
 	else if (height > 0)
 	{
-		print_row(width, '.', '.', '.');
 		print_row(width, '.', '.', '.');
 		print_row(width, '.', '.', '.');
 		height = MAX_DISPLAY_HEIGHT;
