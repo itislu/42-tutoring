@@ -14,10 +14,10 @@
 #include <unistd.h>
 
 #ifndef WIDTH
-# define WIDTH				10
+# define WIDTH				5
 #endif
 #ifndef HEIGHT
-# define HEIGHT				10
+# define HEIGHT				5
 #endif
 
 #ifndef MAX_DISPLAY_WIDTH
