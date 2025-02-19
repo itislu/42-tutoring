@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 19:51:51 by ldulling          #+#    #+#             */
+/*   Updated: 2025/02/19 19:54:48 by ldulling         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "grid.h"
 #include "utils.h"
 #include <stdbool.h>
 #include <unistd.h>
 #include <sys/param.h>
 
-void	fill_default(t_grid *grid);
 static bool	solve(t_grid *grid, uint8_t row, uint8_t col);
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_grid	grid;
 
@@ -16,12 +27,11 @@ int main(int argc, char *argv[])
 		ft_putstr_fd("Error\n", STDERR_FILENO);
 		return (1);
 	}
-	// fill_default(&grid);
 	if (solve(&grid, 0, 0))
 	{
 		print_grid(&grid);
 	}
-	else 
+	else
 	{
 		ft_putstr_fd("Error\n", STDERR_FILENO);
 	}
@@ -36,9 +46,7 @@ static bool	solve(t_grid *grid, uint8_t row, uint8_t col)
 	uint8_t			next_col;
 
 	if (row == grid->rows)
-	{
-		return is_valid_grid(grid);
-	}
+		return (is_valid_grid(grid));
 	next_col = col + 1;
 	next_row = row;
 	if (next_col == grid->cols)
@@ -50,34 +58,10 @@ static bool	solve(t_grid *grid, uint8_t row, uint8_t col)
 	while (num <= max)
 	{
 		*get_cell(grid, row, col) = num;
-		if (!is_dup(grid, row, col))
-		{
-			if (solve(grid, next_row, next_col))
-			{
-				return (true);
-			}
-		}
+		if (!is_dup(grid, row, col) && solve(grid, next_row, next_col))
+			return (true);
 		*get_cell(grid, row, col) = 0;
 		num++;
 	}
 	return (false);
-}
-
-void	fill_default(t_grid *grid)
-{
-	uint8_t	row;
-	uint8_t	col;
-
-	row = 0;
-	while (row < grid->rows)
-	{
-		col = 0;
-		while (col < grid->cols)
-		{
-			*get_cell(grid, row, col) = 
-				(col + row) % MAX(grid->rows, grid->cols) + 1;
-			col++;
-		}
-		row++;
-	}
 }

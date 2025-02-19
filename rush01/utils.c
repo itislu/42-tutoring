@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 19:51:53 by ldulling          #+#    #+#             */
+/*   Updated: 2025/02/19 20:14:13 by ldulling         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "utils.h"
 #include <stdbool.h>
 #include <stddef.h>
@@ -66,12 +78,7 @@ uint8_t	nbrlen(int nbr)
 	return (len);
 }
 
-void	ft_putstr_fd(const char *str, int fd)
-{
-	write(fd, str, ft_strlen(str));
-}
-
-size_t	ft_strlen(const char *str) 
+size_t	ft_strlen(const char *str)
 {
 	size_t	len;
 
@@ -82,4 +89,3 @@ size_t	ft_strlen(const char *str)
 	}
 	return (len);
 }
-

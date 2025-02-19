@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 19:51:48 by ldulling          #+#    #+#             */
+/*   Updated: 2025/02/19 20:00:41 by ldulling         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "grid.h"
 #include "utils.h"
 #include <stdbool.h>
@@ -25,16 +37,14 @@ bool	init_grid(t_grid *grid, const char *input)
 	grid->bottom = malloc(grid->cols);
 	grid->left = malloc(grid->rows);
 	grid->right = malloc(grid->rows);
-	if (grid->cells == NULL || grid->top == NULL || grid->bottom == NULL 
+	if (grid->cells == NULL || grid->top == NULL || grid->bottom == NULL
 		|| grid->left == NULL || grid->right == NULL)
 	{
-		clean_grid(grid);
-		return (false);
+		return (clean_grid(grid), false);
 	}
 	if (!set_requirements(grid, input))
 	{
-		clean_grid(grid);
-		return (false);
+		return (clean_grid(grid), false);
 	}
 	ft_memset(grid->cells, 0, grid->rows * grid->cols);
 	return (true);

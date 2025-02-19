@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   grid.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 19:51:46 by ldulling          #+#    #+#             */
+/*   Updated: 2025/02/19 19:58:11 by ldulling         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GRID_H
-#define GRID_H
+# define GRID_H
 
-#include <stdbool.h>
-#include <stdint.h>
+# include <stdbool.h>
+# include <stdint.h>
 
-#define MAX_SCALE	(255 - 1)
+# define MAX_SCALE	254	// UINT8_MAX - 2
 
 typedef struct s_grid
 {
