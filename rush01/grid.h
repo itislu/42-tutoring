@@ -23,7 +23,10 @@ void	clean_grid(t_grid *grid);
 
 // grid
 uint8_t	*get_cell(t_grid *grid, uint8_t row, uint8_t col);
-bool	is_valid(t_grid *grid, uint8_t row, uint8_t col);
+bool	is_dup(t_grid *grid, uint8_t row, uint8_t col);
+bool	is_valid_grid(t_grid *grid);
+bool	is_valid_row(t_grid *grid, uint8_t row);
+bool	is_valid_col(t_grid *grid, uint8_t col);
 void	print_grid(t_grid *grid);
 
 // iterators

@@ -36,6 +36,7 @@ bool	init_grid(t_grid *grid, const char *input)
 		clean_grid(grid);
 		return (false);
 	}
+	ft_memset(grid->cells, 0, grid->rows * grid->cols);
 	return (true);
 }
 
@@ -53,7 +54,6 @@ void	clean_grid(t_grid *grid)
 static int	get_scale(const char *input)
 {
 	int	spaces;
-	int	nbr;
 
 	spaces = 0;
 	while (*input != '\0')
