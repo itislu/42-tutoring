@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:51:51 by ldulling          #+#    #+#             */
-/*   Updated: 2025/02/19 19:54:48 by ldulling         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:33:15 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ static bool	solve(t_grid *grid, uint8_t row, uint8_t col)
 	num = 1;
 	while (num <= max)
 	{
-		*get_cell(grid, row, col) = num;
+		grid->cells[row][col] = num;
 		if (!is_dup(grid, row, col) && solve(grid, next_row, next_col))
 			return (true);
-		*get_cell(grid, row, col) = 0;
+		grid->cells[row][col] = 0;
 		num++;
 	}
 	return (false);

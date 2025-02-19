@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:51:44 by ldulling          #+#    #+#             */
-/*   Updated: 2025/02/19 20:13:53 by ldulling         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:40:40 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@
 #include <unistd.h>
 
 static uint8_t	count_visible(t_grid *grid, uint8_t which, \
-	uint8_t (*next)(t_grid *grid, uint8_t which, int *cur));
-
-uint8_t	*get_cell(t_grid *grid, uint8_t row, uint8_t col)
-{
-	return (&grid->cells[row * grid->cols + col]);
-}
+					uint8_t (*next)(t_grid *grid, uint8_t which, int *cur));
+static bool		is_valid_row(t_grid *grid, uint8_t row);
+static bool		is_valid_col(t_grid *grid, uint8_t col);
 
 bool	is_dup(t_grid *grid, uint8_t row, uint8_t col)
 {
@@ -77,13 +74,13 @@ bool	is_valid_grid(t_grid *grid)
 	return (true);
 }
 
-bool	is_valid_row(t_grid *grid, uint8_t row)
+static bool	is_valid_row(t_grid *grid, uint8_t row)
 {
 	return (count_visible(grid, row, left_to_right) == grid->left[row]
 		&& count_visible(grid, row, right_to_left) == grid->right[row]);
 }
 
-bool	is_valid_col(t_grid *grid, uint8_t col)
+static bool	is_valid_col(t_grid *grid, uint8_t col)
 {
 	return (count_visible(grid, col, top_to_bottom) == grid->top[col]
 		&& count_visible(grid, col, bottom_to_top) == grid->bottom[col]);

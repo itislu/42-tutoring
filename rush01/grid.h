@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:51:46 by ldulling          #+#    #+#             */
-/*   Updated: 2025/02/19 19:58:11 by ldulling         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:42:51 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 
 typedef struct s_grid
 {
-	uint8_t	*cells;
+	uint8_t	**cells;
+	uint8_t	*_cells_mem;
 	uint8_t	rows;
 	uint8_t	cols;
 	uint8_t	*top;
@@ -33,12 +34,15 @@ typedef struct s_grid
 bool	init_grid(t_grid *grid, const char *input);
 void	clean_grid(t_grid *grid);
 
+// parse
+int		get_scale(const char *input);
+bool	set_requirements(t_grid *grid, const char *input);
+
 // grid
-uint8_t	*get_cell(t_grid *grid, uint8_t row, uint8_t col);
 bool	is_dup(t_grid *grid, uint8_t row, uint8_t col);
 bool	is_valid_grid(t_grid *grid);
-bool	is_valid_row(t_grid *grid, uint8_t row);
-bool	is_valid_col(t_grid *grid, uint8_t col);
+
+// print
 void	print_grid(t_grid *grid);
 
 // iterators

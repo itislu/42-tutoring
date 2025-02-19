@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:51:50 by ldulling          #+#    #+#             */
-/*   Updated: 2025/02/19 19:51:50 by ldulling         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:32:39 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ uint8_t	top_to_bottom(t_grid *grid, uint8_t col, int *cur)
 	{
 		*cur = 0;
 	}
-	cell = *get_cell(grid, *cur, col);
+	cell = grid->cells[*cur][col];
 	*cur += 1;
 	if (*cur == grid->rows)
 	{
@@ -39,7 +39,7 @@ uint8_t	bottom_to_top(t_grid *grid, uint8_t col, int *cur)
 	{
 		*cur = grid->rows - 1;
 	}
-	cell = *get_cell(grid, *cur, col);
+	cell = grid->cells[*cur][col];
 	*cur -= 1;
 	return (cell);
 }
@@ -53,7 +53,7 @@ uint8_t	left_to_right(t_grid *grid, uint8_t row, int *cur)
 	{
 		*cur = 0;
 	}
-	cell = *get_cell(grid, row, *cur);
+	cell = grid->cells[row][*cur];
 	*cur += 1;
 	if (*cur == grid->cols)
 	{
@@ -71,7 +71,7 @@ uint8_t	right_to_left(t_grid *grid, uint8_t row, int *cur)
 	{
 		*cur = grid->cols - 1;
 	}
-	cell = *get_cell(grid, row, *cur);
+	cell = grid->cells[row][*cur];
 	*cur -= 1;
 	return (cell);
 }
